@@ -57,8 +57,10 @@ h1, h2, h3, h4 {
     z-index: 2;
 }
 
-.meme__toggle {
-    width: 1rem;
+.meme__icon {
+    margin: auto 0;
+    text-align: center;
+    color: black;
     visibility: hidden;
     transition: transform 0.5s ease-in-out;
     transform: rotate(0deg);
@@ -74,18 +76,18 @@ h1, h2, h3, h4 {
         color: black;
     }
 
-    .memes:hover .meme__toggle {
+    .memes:hover .meme__icon {
+        visibility: visible;
+        transform: rotate(360deg);
+    }
+
+    .meme:hover > input:not(:checked) ~ .meme__icon {
         visibility: visible;
         transform: rotate(405deg);
     }
 
-    .meme:hover > input:not(:checked) ~ .meme__toggle {
-        visibility: visible;
+    .meme:hover > input:checked ~ .meme__icon {
         transform: rotate(405deg);
-    }
-
-    .meme:hover > input:checked ~ .meme__toggle {
-        transform: rotate(0deg);
     }
 }
 
@@ -141,6 +143,15 @@ h1, h2, h3, h4 {
     .select:checked ~ .meme__image {
         width: max(38rem, 30%);
     }
+}
+
+.meme:active .meme__title,
+.meme:active .meme__icon {
+    color: cornflowerblue;
+}
+
+.meme:active .meme__image {
+    opacity: 0.8;
 }
 
 
