@@ -1,5 +1,10 @@
 :root {
-    --h: 20rem
+    --w: 100%;
+}
+
+html {
+    overflow-x: hidden;
+    margin-right: calc(-1 * (100vw - 100%));
 }
 
 h1, h2, h3, h4 {
@@ -12,70 +17,83 @@ h1, h2, h3, h4 {
 }
 
 .meme {
+    display: flex;
+    font-size: 1.5rem;
+    background-color: white;
+    flex-wrap: wrap;
     cursor: pointer;
-    border-bottom: 2px solid silver;
-    border-radius: 5px;
-}
-
-.meme__container {
-    text-align: center;
+    border-bottom: 0.2rem solid silver;
+    border-radius: 0.4rem;
     overflow: hidden;
-    height: 0;
-    transition: height 0.5s ease-in-out;
 }
 
-.meme_selected .meme__container {
-    height: var(--h);
+.select {
+    display: none;
 }
 
-.meme:hover .meme__container {
-    height: var(--h);
+.meme__image {
+    margin: 1rem auto;
+    z-index: 1;
+    width: 0;
+    object-fit: contain;
+    transition: transform 0.5s 0.2s ease-in-out, width 0.5s ease-in-out;
+}
+
+.select:checked ~ .meme__image {
+    width: var(--w);
+    transform: rotate(360deg);
+}
+
+.meme:hover > input:not(:checked) ~ .meme__image {
+    width: var(--w);
+    transform: rotate(360deg);
 }
 
 
 .meme__title {
-    display: flex;
-    justify-content: space-between;
-    padding-right: 1rem;
+    background-color: white;
+    color: cornflowerblue;
+    width: 96%;
+    z-index: 2;
 }
 
-.meme__image {
-    height: 100%;
-    object-fit: contain;
-    transition: transform 0.5s 0.2s ease-in-out;
-}
-
-.meme:hover:not(.meme_selected) .meme__image {
-    transform: rotate(360deg);
+.memes:hover .meme__title {
+    color: black;
 }
 
 .meme__toggle {
+    width: 3%;
     visibility: hidden;
     transition: transform 0.5s ease-in-out;
     transform: rotate(0deg);
 }
 
-.meme_selected .meme__toggle {
-    visibility: visible;
-}
-
-.meme:hover:not(.meme_selected) .meme__toggle {
+.memes:hover .meme__toggle {
     visibility: visible;
     transform: rotate(405deg);
 }
 
-.meme__wrapper:hover .meme__toggle {
+
+.meme:hover > input:not(:checked) ~ .meme__toggle {
     visibility: visible;
-    transform: rotate(45deg);
+    transform: rotate(405deg);
 }
 
+.meme:hover > input:checked ~ .meme__toggle {
+    transform: rotate(0deg);
+}
 
 @media screen and (min-width: 320px ) {
     .container {
         padding: 2rem;
     }
 
-    .meme:hover .meme__image {
+    .meme:hover > input:not(:checked) ~ .meme__image {
+        width: 90%;
+        transform: rotate(360deg);
+    }
+
+    .select:checked ~ .meme__image {
         width: 90%;
     }
 }
@@ -85,8 +103,13 @@ h1, h2, h3, h4 {
         padding: 4rem;
     }
 
-    .meme:hover .meme__image {
-        width: 70%;
+    .meme:hover > input:not(:checked) ~ .meme__image {
+        width: 50%;
+        transform: rotate(360deg);
+    }
+
+    .select:checked ~ .meme__image {
+        width: 50%;
     }
 }
 
@@ -95,8 +118,13 @@ h1, h2, h3, h4 {
         padding: 5rem;
     }
 
-    .meme:hover .meme__image {
-        width: 50%;
+    .meme:hover > input:not(:checked) ~ .meme__image {
+        width: 30%;
+        transform: rotate(360deg);
+    }
+
+    .select:checked ~ .meme__image {
+        width: 30%;
     }
 }
 
